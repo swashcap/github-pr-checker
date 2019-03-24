@@ -9,7 +9,7 @@ const cli = meow(`
   $ github-pr-checker owner/repository
 
   Options
-    --json       Output as JSON
+    --json  Output as JSON
 `, {
   flags: {
     json: {
