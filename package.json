@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@types/debug": "^4.1.2",
     "@types/meow": "^5.0.0",
     "@types/node": "^11.11.6",
     "eslint-plugin-typescript": "^0.14.0",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^16.20.0",
+    "debug": "^4.1.1",
     "meow": "^5.0.0",
     "perish": "^1.0.2"
   },

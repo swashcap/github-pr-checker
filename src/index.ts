@@ -1,7 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import Octokit, { PullsListResponseItem, PullsListCommentsResponse, PullsListReviewsResponse } from '@octokit/rest'
+import debug from 'debug'
 
 const octokit = new Octokit()
+
+const debugLog = debug('github-pr-checker')
 
 export interface PRApiResponse {
   comments: PullsListCommentsResponse
@@ -37,10 +40,15 @@ export const gimmeData = async ({
   // TODO: Paginate
   // TODO: Handle error codes
   const pullRequests = await getPullRequests(1)
+  debugLog(`${owner}/${repo}: ${pullRequests.data.length} PRs`)
 
   return Promise.all(pullRequests.data.map(async (pr) => {
     const comments = await getComments(pr.number)
     const reviews = await getReviews(pr.number)
+
+    debugLog(`${owner}/${repo}/pull/${pr.number}: ${comments.data.length} comments`)
+    debugLog(`${owner}/${repo}/pull/${pr.number}: ${reviews.data.length} reviews`)
+
     return {
       comments: comments.data,
       pr,
