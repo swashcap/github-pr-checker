@@ -39,15 +39,15 @@ gimmeData({
   const count = output.length;
   const getCount = (fn: (x: PROutput) => boolean): number =>
     output.reduce((acc, x) => fn(x) ? acc + 1 : acc, 0)
-  const getPercent = (n: number) => `${Math.round(n / count * 100) / 100}%`
+  const getPercent = (n: number) => `${Math.round(n / count * 10000) / 100}%`
 
   // Markdown report!
   console.log(`# ${owner}/${repo} PR Report
 
 * Pull requests: **${count}**
-* No Description: **${getPercent(getCount(({ hasDescription }) => hasDescription))}**
-* No comments: **${getPercent(getCount(({ hasComments }) => hasComments))}**
-* No reviews: **${getPercent(getCount(({ hasReviews, reviewers }) => hasReviews && !!reviewers && !!reviewers.length))}**
+* No Description: **${getPercent(count - getCount(({ hasDescription }) => hasDescription))}**
+* No comments: **${getPercent(count - getCount(({ hasComments }) => hasComments))}**
+* No reviews: **${getPercent(count - getCount(({ hasReviews, reviewers }) => hasReviews && !!reviewers && !!reviewers.length))}**
 
 ${output.map(({
   author,
