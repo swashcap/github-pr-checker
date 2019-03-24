@@ -28,20 +28,20 @@ const cli = meow(`
 const owner = cli.input[0] ? cli.input[0].split('/')[0] : ''
 const repo = cli.input[0] ? cli.input[0].split('/')[1] : ''
 const page = cli.flags.page ? parseInt(cli.flags.page) : 1
-const per_page = cli.flags.perPage ? parseInt(cli.flags.perPage) : 10
+const perPage = cli.flags.perPage ? parseInt(cli.flags.perPage) : 10
 
 if (!owner || !repo) {
   throw new Error('`owner/repository` arg is required')
 } else if (Number.isNaN(page) || page < 1) {
   throw new Error('Bad `page` flag')
-} else if (Number.isNaN(per_page) || per_page < 1) {
+} else if (Number.isNaN(perPage) || perPage < 1) {
   throw new Error('Bad `perPage` flag')
 }
 
 gimmeData({
   owner,
   page,
-  per_page,
+  perPage,
   repo
 }).then(data => {
   const output = mapPRToOutput(data)

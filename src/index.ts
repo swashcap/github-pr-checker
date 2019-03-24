@@ -22,12 +22,12 @@ export interface PRApiResponse {
 export const gimmeData = async ({
   owner,
   page,
-  per_page,
+  perPage,
   repo
 }: {
   owner: string;
   page: number,
-  per_page: number,
+  perPage: number,
   repo: string;
 }): Promise<PRApiResponse[]> => {
   debugLog(`${owner}/${repo}`)
@@ -45,7 +45,7 @@ export const gimmeData = async ({
   const getPullRequests = async () => octokit.pulls.list({
     owner,
     page,
-    per_page,
+    per_page: perPage,
     repo,
     state: 'all'
   })
