@@ -2,7 +2,6 @@
 import Octokit, { PullsListResponseItem, PullsListCommentsResponse, PullsListReviewsResponse } from '@octokit/rest'
 import debug from 'debug'
 
-
 const debugLog = debug('github-pr-checker')
 const octokit = new Octokit({
   auth: process.env.GH_TOKEN && `token ${process.env.GH_TOKEN}`,
@@ -10,7 +9,7 @@ const octokit = new Octokit({
     debug: (...args) => debugLog('octokit-debug', ...args),
     info: (...args) => debugLog('octokit-info', ...args),
     warn: (...args) => debugLog('octokit-warn', ...args),
-    error: (...args) => debugLog('octokit-error', ...args),
+    error: (...args) => debugLog('octokit-error', ...args)
   }
 })
 
@@ -76,10 +75,9 @@ export interface PROutput {
   baseBranch: string;
   hasComments: boolean;
   hasDescription: boolean;
-  hasReviews: boolean;
   merged: boolean;
   isAssigned: boolean;
-  reviewers?: string[];
+  reviews?: string[];
   url: string;
 }
 
@@ -91,6 +89,8 @@ export const mapPRToOutput = (items: PRApiResponse[]): PROutput[] => items.map((
   hasDescription: !!pr.body,
   hasReviews: !!reviews.length,
   merged: !!pr.merged_at,
-  reviewers: pr.requested_reviewers.length ? pr.requested_reviewers.map(({ login }) => login) : undefined,
+  reviews: reviews.length && reviews.some(({ state }) => state === 'APPROVED')
+    ? reviews.reduce<string[]>((acc, { state, user }) => state === 'APPROVED' ? acc.concat(user.login) : acc, [])
+    : undefined,
   url: pr.html_url
 }))

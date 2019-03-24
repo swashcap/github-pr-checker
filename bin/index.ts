@@ -61,17 +61,16 @@ gimmeData({
 * Pull requests: **${count}**
 * No Description: **${getPercent(count - getCount(({ hasDescription }) => hasDescription))}**
 * No comments: **${getPercent(count - getCount(({ hasComments }) => hasComments))}**
-* No reviews: **${getPercent(count - getCount(({ hasReviews, reviewers }) => hasReviews && !!reviewers && !!reviewers.length))}**
+* No reviews: **${getPercent(count - getCount(({ reviews }) => !!reviews))}**
 
 ${output.map(({
   author,
   baseBranch,
   hasComments,
   hasDescription,
-  hasReviews,
   isAssigned,
   merged,
-  reviewers,
+  reviews,
   url
 }) => `## ${url}
 
@@ -79,7 +78,7 @@ ${output.map(({
 * Branch: **${baseBranch}**
 * Has comments?: **${hasComments}**
 * Has description?: **${hasDescription}**
-* Has reviews?: **${hasReviews && reviewers  ? reviewers.join(' ') : false}**
+* Reviews?: **${reviews ? reviews.join(', ') : false}**
 * Is assigned?: **${isAssigned}**
 * Merged?: **${merged}**
 `).join('\n')}`)
