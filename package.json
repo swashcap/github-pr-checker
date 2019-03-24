@@ -5,5 +5,8 @@
   "repository": "git@github.com:swashcap/github-pr-checker.git",
   "author": "Cory Reed <swashcap@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "typescript": "^3.3.4000"
+  }
 }
