@@ -2,8 +2,10 @@
 import Octokit, { PullsListResponseItem, PullsListCommentsResponse, PullsListReviewsResponse } from '@octokit/rest'
 import debug from 'debug'
 
-const octokit = new Octokit()
 
+const octokit = new Octokit({
+  auth: process.env.GH_TOKEN && `token ${process.env.GH_TOKEN}`
+})
 const debugLog = debug('github-pr-checker')
 
 export interface PRApiResponse {
