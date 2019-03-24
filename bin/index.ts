@@ -42,7 +42,7 @@ gimmeData({
   const getPercent = (n: number) => `${Math.round(n / count * 100) / 100}%`
 
   // Markdown report!
-  return `# ${owner}/${repo}
+  console.log(`# ${owner}/${repo} PR Report
 
 * Pull requests: **${count}**
 * No Description: **${getPercent(getCount(({ hasDescription }) => hasDescription))}**
@@ -68,6 +68,5 @@ ${output.map(({
 * Has reviews?: **${hasReviews && reviewers  ? reviewers.join(' ') : false}**
 * Is assigned?: **${isAssigned}**
 * Merged?: **${merged}**
-
-`)}`
+`).join('\n')}`)
 })
