@@ -3,7 +3,7 @@ import Octokit, { PullsListResponseItem, PullsListCommentsResponse, PullsListRev
 
 const octokit = new Octokit()
 
-interface PRApiResponse {
+export interface PRApiResponse {
   comments: PullsListCommentsResponse
   pr: PullsListResponseItem
   reviews: PullsListReviewsResponse
@@ -49,7 +49,7 @@ export const gimmeData = async ({
   }))
 }
 
-interface PROutput {
+export interface PROutput {
   author: string;
   baseBranch: string;
   hasComments: boolean;

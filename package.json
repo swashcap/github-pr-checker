@@ -1,12 +1,14 @@
 {
   "name": "github-pr-checker",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "bin": "bin/index.js",
+  "main": "src/index.js",
   "repository": "git@github.com:swashcap/github-pr-checker.git",
   "author": "Cory Reed <swashcap@gmail.com>",
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@types/meow": "^5.0.0",
     "@types/node": "^11.11.6",
     "eslint-plugin-typescript": "^0.14.0",
     "standard": "^12.0.1",
@@ -15,9 +17,12 @@
     "typescript-estree": "18.1.0"
   },
   "dependencies": {
-    "@octokit/rest": "^16.20.0"
+    "@octokit/rest": "^16.20.0",
+    "meow": "^5.0.0",
+    "perish": "^1.0.2"
   },
   "scripts": {
+    "build": "tsc && chmod +x bin/index.js",
     "format": "yarn lint --fix",
     "lint": "standard 'src/**/*.ts'"
   },
