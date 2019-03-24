@@ -3,10 +3,16 @@ import Octokit, { PullsListResponseItem, PullsListCommentsResponse, PullsListRev
 import debug from 'debug'
 
 
-const octokit = new Octokit({
-  auth: process.env.GH_TOKEN && `token ${process.env.GH_TOKEN}`
-})
 const debugLog = debug('github-pr-checker')
+const octokit = new Octokit({
+  auth: process.env.GH_TOKEN && `token ${process.env.GH_TOKEN}`,
+  log: {
+    debug: (...args) => debugLog('octokit-debug', ...args),
+    info: (...args) => debugLog('octokit-info', ...args),
+    warn: (...args) => debugLog('octokit-warn', ...args),
+    error: (...args) => debugLog('octokit-error', ...args),
+  }
+})
 
 export interface PRApiResponse {
   comments: PullsListCommentsResponse
@@ -21,6 +27,8 @@ export const gimmeData = async ({
   owner: string;
   repo: string;
 }): Promise<PRApiResponse[]> => {
+  debugLog(`${owner}/${repo}`)
+
   const getComments = async (id: number) => octokit.pulls.listComments({
     number: id,
     owner,
