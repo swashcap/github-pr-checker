@@ -1,0 +1,9 @@
+{
+  "name": "github-pr-checker",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "repository": "git@github.com:swashcap/github-pr-checker.git",
+  "author": "Cory Reed <swashcap@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
