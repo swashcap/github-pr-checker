@@ -6,38 +6,25 @@ import { gimmeData, mapPRToOutput, PROutput } from '../src';
 
 const cli = meow(`
   Usage
-  $ github-pr-checker --owner swashcap --repo github-pr-checker
+  $ github-pr-checker owner/repository
 
   Options
-    --owner, -o  Repository owner (required)
-    --repo, -r   Repository name (required)
     --json       Output as JSON
 `, {
   flags: {
     json: {
       type: 'boolean'
     },
-    owner: {
-      alias: 'o',
-      type: 'string',
-    },
-    repo: {
-      alias: 'r',
-      type: 'string',
-    }
   }
 })
 
-const { json, owner, repo } = cli.flags
+const repo = cli.input[0] ? cli.input[0].split('/')[0] : ''
+const owner = cli.input[0] ? cli.input[0].split('/')[1] : ''
+const { json } = cli.flags
 
-if (!owner && repo) {
-  throw new Error('`owner` and `repo` flags ar required')
-} else if (!owner) {
-  throw new Error('`owner` flag is required')
-} else if (!repo) {
-  throw new Error('`repo` flag is required')
+if (!owner || !repo) {
+  throw new Error('`owner/repository` arg is required')
 }
-
 
 gimmeData({
   owner,
