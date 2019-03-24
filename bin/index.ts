@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import 'perish'
 import meow from 'meow'
 import { setFlagsFromString } from 'v8';
