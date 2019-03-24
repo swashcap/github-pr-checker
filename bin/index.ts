@@ -18,8 +18,8 @@ const cli = meow(`
   }
 })
 
-const repo = cli.input[0] ? cli.input[0].split('/')[0] : ''
-const owner = cli.input[0] ? cli.input[0].split('/')[1] : ''
+const owner = cli.input[0] ? cli.input[0].split('/')[0] : ''
+const repo = cli.input[0] ? cli.input[0].split('/')[1] : ''
 const { json } = cli.flags
 
 if (!owner || !repo) {
